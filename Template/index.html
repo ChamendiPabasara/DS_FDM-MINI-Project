@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Donation Analysis</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+		<link rel="stylesheet" href="../static/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+
+		<!-- STYLE CSS -->
+		<link rel="stylesheet" href="../static/css/style.css">
+
+		<script language="javascript">
+			function checkInput(ob) {
+				var invalidChars = /[^0-9]/gi
+				if(invalidChars.test(ob.value)) {
+				ob.value = ob.value.replace(invalidChars,"");
+				}
+	  }
+	  function isFloat(evt) {
+
+var charCode = (event.which) ? event.which : event.keyCode;
+if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
+    alert('Please enter only no or float value');
+    return false;
+}
+else {
+
+    var parts = evt.srcElement.value.split('.');
+    if (parts.length > 1 && charCode == 46)
+      {
+        return false;
+      }
+
+
+    return true;
+
+
+</script>
+	</head>
+	<style> body{ min-height: 100vh,
+  				  display: flex,
+  				  align-items: center;background-image: url("../static/images/bg-registration-form-7.jpg")}
+	</style>
+	<body>
+		<div class="wrapper" >
+			<div class="inner">
+				<form action="{{ url_for('predict')}}"method="post">
+					<h3>Predicting Donors</h3><br>
+					<label class="form-group">
+						<input type="text" name="homeowner dummy" class="form-control"  oninput="this.value = this.value.replace(/[^0-1.]/g, '').replace(/(\..*)\./g, '$1');" required="required" />
+						<span>Home Owner (1 - Owner , 0 - Non-Owner)</span>
+						<span class="border"></span>
+					</label>
+					<label class="form-group">
+						<input type="text" name="NUMCHILD" class="form-control" required="required" />
+						<span>Number Of Children</span>
+						<span class="border"></span>
+					</label>
+					<label class="form-group">
+						<input type="text" name="INCOME" class="form-control" required="required"  />
+						<span for="">Household Income</span>
+						<span class="border"></span>
+					</label>
+					<label class="form-group">
+						<input type="text" name="gender dummy" class="form-control" oninput="this.value = this.value.replace(/[^0-1.]/g, '').replace(/(\..*)\./g, '$1');" required="required" />
+						<span>Gender  (1 - Female , 0 - Male)</span>
+						<span class="border"></span>
+					</label>
+					<label class="form-group">
+						<input type="text" name="WEALTH"  required="required"  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control"  />
+						<span for="">Wealth (0 - Lowest wealth level, 9 - Highest wealth level)</span>
+						<span class="border"></span>
+					</label>
+					<label class="form-group">
+						<input type="text" name="HV" required="required"  onkeyup="checkInput(this)" class="form-control" />
+						<span>Average Home Value</span>
+						<span class="border"></span>
+					</label>
+					<label class="form-group">
+						<input type="text" name="Icmed"  required="required"  onkeyup="checkInput(this)" class="form-control" />
+						<span for="">Median Family Income</span>
+						<span class="border"></span>
+					</label>
+					<label class="form-group">
+						<input type="text" name="Icavg"  required="required"  onkeyup="checkInput(this)" class="form-control" />
+						<span>Average Family Income</span>
+						<span class="border"></span>
+					</label>
+					<label class="form-group">
+						<input type="text" name="IC15"  required="required" onkeyup="checkInput(this)" class="form-control" />
+						<span for="">Percent Earning</span>
+						<span class="border"></span>
+					</label>
+					<label class="form-group">
+						<input type="text" name="NUMPROM"  required="required" onkeyup="checkInput(this)" class="form-control" />
+						<span>Life Time Number Of Promotions</span>
+						<span class="border"></span>
+					</label>
+					<label class="form-group">
+						<input type="text" name="RAMNTALL"  required="required" onkeyup="checkInput(this)" class="form-control" />
+						<span for="">Dolar Amount of Life Time Gifts</span>
+						<span class="border"></span>
+					</label>
+					<label class="form-group">
+						<input type="text" name="MAXRAMNT"  required="required" onkeyup="checkInput(this)" class="form-control" />
+						<span>Dolar Amount of Largest Gift</span>
+						<span class="border"></span>
+					</label>
+					<label class="form-group">
+						<input type="text" name="LASTGIFT"  required="required" onkeyup="checkInput(this)" class="form-control" />
+						<span for="">Dolar Amount of Most Recent Gift</span>
+						<span class="border"></span>
+					</label>
+
+
+					<label class="form-group" >
+						<input type="text" name="totalmonths"  required="required" onkeyup="checkInput(this)" id="NM" class="form-control" />
+						<span for="">Number of Months from last Donation</span>
+						<span class="border"></span>
+					</label>
+					<label class="form-group" >
+						<input type="text" name="TIMELAG"  required="required" onkeyup="checkInput(this)" id="FG" class="form-control" />
+						<span for="">Number Of Months between First & Second Gift</span>
+						<span class="border"></span>
+					</label>
+					<label class="form-group" >
+						<input type="number" step="any" name="AVGGIFT"  required="required" onkeyup="checkInput(this)" onkeypress="return isFloat(event)" id="KN " class="form-control" />
+						<span for="">Average Dolar Amount of Gifts</span>
+						<span class="border"></span>
+					</label>
+					<label class="form-group" >
+						<input type="text" name="zip"  required="required" oninput="this.value = this.value.replace(/[^1-4.]/g, '').replace(/(\..*)\./g, '$1');" maxlength = "1" id=""  class="form-control" />
+						<span for="">ZIP (Region: 0-19999=1; 20K-39999=2; 40K-59999=3; 80K-99999=4 )</span>
+						<span class="border"></span>
+					</label>
+					<button>Predict
+						<i class="zmdi zmdi-arrow-right"></i>
+					</button>
+					<br>
+
+					{{ prediction_text }}
+				</form>
+			</div>
+		</div>
+
+	</body>
+</html>
